@@ -18,7 +18,7 @@ class PatientDaoTest {
 
   @BeforeAll
   public static void beforeAll() {
-    Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/thrive", "anna", "pol1234");
+    Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/thrive_test", "anna", "pol1234");
     patientDao = new PatientDao(sql2o);
     connection = sql2o.open();
   }
