@@ -3,6 +3,7 @@ package models;
 import org.joda.time.LocalDateTime;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Appointment {
     private int id;
@@ -14,6 +15,19 @@ public class Appointment {
     private String link;
     private LocalDateTime formattedStartTime;
     private LocalDateTime formattedEndTime;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appointment that = (Appointment) o;
+        return getPatient() == that.getPatient() && getTherapist() == that.getTherapist() && Objects.equals(getStarttime(), that.getStarttime()) && Objects.equals(getEndtime(), that.getEndtime()) && Objects.equals(getLink(), that.getLink());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStarttime(), getEndtime(), getPatient(), getTherapist(), getLink());
+    }
 
     public Appointment(Timestamp starttime, Timestamp endtime, int patient, int therapist, String link) {
         this.starttime = starttime;

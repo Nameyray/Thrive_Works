@@ -1,5 +1,7 @@
 package base;
 
+import java.util.Objects;
+
 public abstract class User {
     protected int id;
     protected String name;
@@ -10,6 +12,19 @@ public abstract class User {
 
     public String getAddress() {
         return address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return  getPhone() == user.getPhone() && Objects.equals(getName(), user.getName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getAddress(), user.getAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getPhone(), getEmail(), getPassword(), getAddress());
     }
 
     public void setAddress(String address) {
