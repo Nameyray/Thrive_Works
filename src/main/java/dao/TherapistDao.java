@@ -75,7 +75,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
 
     @Override
     public void delete(int id) {
-        String query = "DELETE FROM users WHERE id = :id";
+        String query = "DELETE FROM users WHERE id = :id AND role='Therapist'";
         try(Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .addParameter("id", id)
@@ -88,7 +88,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
 
     @Override
     public void delete() {
-        String query = "DELETE FROM users";
+        String query = "DELETE FROM users WHERE role='Therapist'";
         try(Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .executeUpdate();
