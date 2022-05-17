@@ -16,9 +16,9 @@ is_vetted INT
 
 CREATE TABLE appointments(
 id serial PRIMARY KEY,
-starttime DATE,
+starttime TIMESTAMP,
 createdat TIMESTAMP,
-endtime DATE,
+endtime TIMESTAMP,
 patient INT,
 therapist INT,
 link VARCHAR
