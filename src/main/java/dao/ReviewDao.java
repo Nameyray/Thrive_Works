@@ -21,7 +21,7 @@ public class ReviewDao implements ThriveDatabaseDao<Review> {
 
     @Override
     public void add(Review data) {
-        String query = "INSERT INTO reviews(appointmentid, feedback ) values(:appointmentid, :feedback,)";
+        String query = "INSERT INTO reviews(appointmentid, feedback) values(:appointmentid, :feedback)";
         try(Connection connection = sql2o.open()){
             int id =(int) connection.createQuery(query, true)
                     .bind(data)
@@ -49,7 +49,7 @@ public class ReviewDao implements ThriveDatabaseDao<Review> {
 
     @Override
     public List<Review> findAll() {
-        String query = "SELECT * FROM reveiws";
+        String query = "SELECT * FROM reviews";
         try(Connection connection = sql2o.open()){
             return connection.createQuery(query)
                     .executeAndFetch(Review.class);
