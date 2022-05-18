@@ -21,7 +21,7 @@ public class AppointmentDao implements ThriveDatabaseDao<Appointment> {
 
     @Override
     public void add(Appointment data) {
-        String query = "INSERT INTO appointments(starttime, endtime, createdat, patient, therapist, link ) values(:starttime, :endtime, :createdat, patient, :therapist, :link)";
+        String query = "INSERT INTO appointments(starttime, endtime, createdat, patient, therapist, link ) values(:starttime, :endtime, now(), :patient, :therapist, :link)";
         try(Connection connection = sql2o.open()){
             int id =(int) connection.createQuery(query, true)
                     .bind(data)
@@ -37,7 +37,7 @@ public class AppointmentDao implements ThriveDatabaseDao<Appointment> {
 
     @Override
     public void update(Appointment data) {
-        String query = "UPDATE users SET (starttime, endtime, createdat, patient, therapist, link ) = (:starttime, :endtime, :createdat, :patient, :therapist, :link) WHERE id = :id";
+        String query = "UPDATE appointments SET (starttime, endtime, patient, therapist, link) = (:starttime, :endtime, :patient, :therapist, :link) WHERE id = :id";
         try(Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .bind(data)
@@ -89,7 +89,7 @@ public class AppointmentDao implements ThriveDatabaseDao<Appointment> {
 
     @Override
     public void delete() {
-        String query = "DELETE FROM appointments WHERE role='Therapist'";
+        String query = "DELETE FROM appointments";
         try(Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .executeUpdate();
