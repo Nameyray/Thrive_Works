@@ -6,9 +6,10 @@ public class Therapist extends User {
     private String specialization;
     private int ratings;
     private int is_vetted;
+    private int rate;
 
     private static final String USER_ROLE = "Therapist";
-    public Therapist(String specialization, String name, int phone, String address, String email, String password) {
+    public Therapist(String specialization, String name, int phone, String address, String email, String password, int rate) {
         this.specialization = specialization;
         this.name = name;
         this.phone = phone;
@@ -17,7 +18,16 @@ public class Therapist extends User {
         this.password = password;
         this.ratings = 0;
         this.is_vetted = 0;
+        this.rate = rate;
         this.role = USER_ROLE;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 
     public String getSpecialization() {
