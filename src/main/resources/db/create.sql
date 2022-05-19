@@ -11,6 +11,7 @@ email VARCHAR,
 role VARCHAR,
 password VARCHAR,
 specialization VARCHAR,
+rate int,
 ratings INT,
 is_vetted INT
 );
