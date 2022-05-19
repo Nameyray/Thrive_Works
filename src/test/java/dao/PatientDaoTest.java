@@ -8,6 +8,7 @@ import org.sql2o.Sql2o;
 import parameter_resolver.PatientParameterResolver;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,6 +78,30 @@ class PatientDaoTest {
     patientDao.add(patient);
     patientDao.delete();
     assertEquals(0, patientDao.findAll().size());
+  }
+
+  @Test
+  @DisplayName("Test that a patient can be logged in if correct authentication credentials are provided")
+  public void login_logsInPatientIfCorrectCredentials_true(Patient patient) {
+    patientDao.add(patient);
+    Map<String,Object> result = patientDao.login(patient.getEmail(), patient.getPassword());
+    assertTrue((Boolean) result.get("login"));
+    assertEquals(patient, result.get("current"));
+  }
+
+  @Test
+  @DisplayName("Test that a patient is not logged in if incorrect authentication credentials are provided")
+  public void login_doesNotLoginPatientIfIncorrectCredentials_false(Patient patient) {
+    patientDao.add(patient);
+    Map<String,Object> result = patientDao.login("ldoe@gmail.com", "123");
+    assertFalse((Boolean) result.get("login"));
+  }
+
+  @Test
+  @DisplayName("Test that a patient can signup")
+  public void signUp_signsUpPatient_true(Patient patient) {
+    patientDao.signup(patient);
+    assertTrue(patientDao.findAll().contains(patient));
   }
 
   @AfterEach
