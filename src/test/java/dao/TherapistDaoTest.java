@@ -82,6 +82,15 @@ class TherapistDaoTest {
     assertEquals(0, therapistDao.findAll().size());
   }
 
+  @Test
+  @DisplayName("Test that a therapist's rating can be computed correctly")
+  public void computeRating_computesTherapistRating_true(Therapist therapist) {
+    therapistDao.add(therapist);
+    therapistDao.computeRating(therapist.getId(), 4);
+    Therapist foundTherapist = therapistDao.findById(therapist.getId());
+    assertEquals(4, foundTherapist.getRatings());
+  }
+
   @AfterEach
   public void tearDown() {
     therapistDao.delete();
