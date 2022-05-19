@@ -1,14 +1,15 @@
 package dao;
 
 import interfaces.ThriveDatabaseDao;
-import models.Patient;
 import models.Therapist;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TherapistDao implements ThriveDatabaseDao<Therapist> {
     private final Sql2o sql2o;
@@ -19,7 +20,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
 
     @Override
     public void add(Therapist data) {
-        String query = "INSERT INTO users(name, phone, address, email, role, password, specialization, ratings, is_vetted ) values(:name, :phone, :address, :email, :role, :password, :specialization, :ratings, :is_vetted)";
+        String query = "INSERT INTO users(name, phone, address, email, role, password, specialization, rate, ratings, is_vetted ) values(:name, :phone, :address, :email, :role, :password, :specialization, :rate, :ratings, :is_vetted)";
         try(Connection connection = sql2o.open()){
             int id =(int) connection.createQuery(query, true)
                     .bind(data)
@@ -68,7 +69,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
                     .executeAndFetchFirst(Therapist.class);
         } catch (Sql2oException ex){
             ex.printStackTrace();
-            return new Therapist("","",0,"","","");
+            return new Therapist("","",0,"","","", 0);
         }
 
     }
@@ -96,5 +97,114 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
             ex.printStackTrace();
         }
 
+    }
+
+    // Method to login
+    public Map<String, Object> login(String email, String password){
+        String selectQuery = "SELECT * FROM users WHERE email = :email AND password = :password";
+        Map<String, Object> result = new HashMap<>();
+        try(Connection connection = sql2o.open()){
+            Therapist therapist = connection.createQuery(selectQuery)
+                    .addParameter("email", email)
+                    .addParameter("password", password)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Therapist.class);
+            if(therapist != null){
+                result.put("login", true);
+                result.put("current", therapist);
+            } else {
+                result.put("login", false);
+            }
+        } catch (Sql2oException exception){
+            exception.printStackTrace();
+        }
+        return result;
+    }
+
+    // Method to signup
+    public void signup(Therapist therapist){
+        add(therapist);
+    }
+
+    // Method to select therapist
+    public List<Therapist> selectTherapists(Map<String, Object> surveyResponses){
+        List<Therapist> therapists;
+        if(surveyResponses.get("financial_status").equals("Just there")){
+            if (surveyResponses.get("physical_health").equals("Just there") || surveyResponses.get("eating_habits").equals("Just there")){
+                String selectQuery = "SELECT * FROM users WHERE rate <= 2000 AND specialization = 'Depression' ORDER BY rating DESC LIMIT 3";
+                try(Connection connection = sql2o.open()){
+                    therapists = connection.createQuery(selectQuery)
+                            .throwOnMappingFailure(false)
+                            .executeAndFetch(Therapist.class);
+                } catch (Sql2oException exception){
+                    exception.printStackTrace();
+                    therapists = new ArrayList<>();
+                }
+            } else {
+                String selectQuery = "SELECT * FROM users WHERE rate <= 2000 ORDER BY rating LIMIT 3";
+                try(Connection connection = sql2o.open()){
+                    therapists = connection.createQuery(selectQuery)
+                            .throwOnMappingFailure(false)
+                            .executeAndFetch(Therapist.class);
+                } catch (Sql2oException exception){
+                    exception.printStackTrace();
+                    therapists = new ArrayList<>();
+                }
+            }
+        } else if (surveyResponses.get("financial_status").equals("In between")){
+            if (surveyResponses.get("physical_health").equals("Just there") || surveyResponses.get("eating_habits").equals("Just there")){
+                String selectQuery = "SELECT * FROM users WHERE rate > 2000 AND rate <= 5000 AND specialization = 'Depression' ORDER BY rating DESC LIMIT 3";
+                try(Connection connection = sql2o.open()){
+                    therapists = connection.createQuery(selectQuery)
+                            .throwOnMappingFailure(false)
+                            .executeAndFetch(Therapist.class);
+                } catch (Sql2oException exception){
+                    exception.printStackTrace();
+                    therapists = new ArrayList<>();
+                }
+            } else {
+                String selectQuery = "SELECT * FROM users WHERE rate > 2000 AND rate <= 10000 ORDER BY rating LIMIT 3";
+                try(Connection connection = sql2o.open()){
+                    therapists = connection.createQuery(selectQuery)
+                            .throwOnMappingFailure(false)
+                            .executeAndFetch(Therapist.class);
+                } catch (Sql2oException exception){
+                    exception.printStackTrace();
+                    therapists = new ArrayList<>();
+                }
+            }
+        } else {
+            if (surveyResponses.get("physical_health").equals("Just there") || surveyResponses.get("eating_habits").equals("Just there")){
+                String selectQuery = "SELECT * FROM users WHERE rate > 10000 AND specialization = 'Depression' ORDER BY rating DESC LIMIT 3";
+                try(Connection connection = sql2o.open()){
+                    therapists = connection.createQuery(selectQuery)
+                            .throwOnMappingFailure(false)
+                            .executeAndFetch(Therapist.class);
+                } catch (Sql2oException exception){
+                    exception.printStackTrace();
+                    therapists = new ArrayList<>();
+                }
+            } else {
+                String selectQuery = "SELECT * FROM users WHERE rate > 10000 ORDER BY rating LIMIT 3";
+                try(Connection connection = sql2o.open()){
+                    therapists = connection.createQuery(selectQuery)
+                            .throwOnMappingFailure(false)
+                            .executeAndFetch(Therapist.class);
+                } catch (Sql2oException exception){
+                    exception.printStackTrace();
+                    therapists = new ArrayList<>();
+                }
+            }
+        }
+        return therapists;
+    }
+
+    // Method to calculate rating
+    public void computeRating(int therapistId, int rating){
+        Therapist therapist = findById(therapistId);
+        int currentRating = therapist.getRatings();
+        int newRating = currentRating + rating;
+        therapist.setRatings(newRating);
+        update(therapist);
     }
 }
