@@ -124,7 +124,7 @@ public class PatientDao implements ThriveDatabaseDao<Patient> {
     }
 
     // Method to capture survey questions
-    public Map<String, Object> captureSurveyResponses(String gender, String age, String relationship, String seenTherapist, String physicalHealth, String eatingHabits, String financialStatus, String language, List<String> preferred){
+    public Map<String, Object> captureSurveyResponses(String gender, String age, String relationship, String seenTherapist, String physicalHealth, String eatingHabits, String financialStatus, String language, String preferred){
         Map<String, Object> surveyResponses = new HashMap<>();
         surveyResponses.put("gender", gender);
         surveyResponses.put("age", age);

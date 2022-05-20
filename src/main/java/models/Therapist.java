@@ -4,12 +4,14 @@ import base.User;
 
 public class Therapist extends User {
     private String specialization;
+
+    private String description;
     private int ratings;
     private int is_vetted;
     private int rate;
 
     private static final String USER_ROLE = "Therapist";
-    public Therapist(String specialization, String name, int phone, String address, String email, String password, int rate) {
+    public Therapist(String specialization, String name, int phone, String address, String email, String password, int rate, String description) {
         this.specialization = specialization;
         this.name = name;
         this.phone = phone;
@@ -19,6 +21,7 @@ public class Therapist extends User {
         this.ratings = 0;
         this.is_vetted = 0;
         this.rate = rate;
+        this.description = description;
         this.role = USER_ROLE;
     }
 
@@ -52,5 +55,13 @@ public class Therapist extends User {
 
     public void setIs_vetted(int is_vetted) {
         this.is_vetted = is_vetted;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

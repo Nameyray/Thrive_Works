@@ -14,6 +14,6 @@ public class TherapistParameterResolver implements ParameterResolver {
 
   @Override
   public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-    return new Therapist("Anxiety disorders", "John Doe", 723098123, "5th floor, Ngong lane plaza", "jdoe@gmail.com", "12345678", 3000);
+    return new Therapist("Anxiety disorders", "John Doe", 723098123, "5th floor, Ngong lane plaza", "jdoe@gmail.com", "12345678", 3000, "");
   }
 }

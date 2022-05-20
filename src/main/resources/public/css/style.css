@@ -1,11 +1,12 @@
 /* ==== "Inter" FONT-FAMILY FROM FONTS.GOOGLE.COM  ==== */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 /* ==== ROOT RESET ==== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 *,
@@ -46,7 +47,6 @@ button {
 /* ==== CONTAINER ==== */
 .container {
   width: 100%;
-
 }
 @media screen and (min-width: 1040px) {
   .container {
@@ -72,9 +72,10 @@ button {
   justify-content: space-between;
 }
 /* ==== LOGO ==== */
-.logo h1 {
+p.logo {
   font-size: 28px;
   color:purple;
+  font-family: 'Lobster', cursive;
 }
 /* ====  NAV-MENU  ==== */
 .nav_menu_list {
@@ -90,6 +91,7 @@ button {
   color: var(--link-color);
   text-transform: capitalize;
   letter-spacing: 0.5px;
+  text-shadow: 5rem 3rem rgba(0,0,0,0.01);
 }
 .nav_menu_link:hover {
   color: var(--primary-color);
@@ -160,6 +162,7 @@ button {
 .btn:hover {
   transform: translateY(-3px);
   background-color: var(--btn-hover-color);
+  color:white;
 }
 .view_more_btn {
   width: 180px;
@@ -194,6 +197,7 @@ button {
 .documentation_btn:hover {
   background-color: #d7ddf1;
   transition: box-shadow 0.25s ease, transform 0.25s ease;
+  color: #0e2a86;
 }
 .grid-item-2 {
   width: 100%;
@@ -374,4 +378,3 @@ footer {
   .featured_info span {
     font-size: 19px;
   }
-}

@@ -20,7 +20,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
 
     @Override
     public void add(Therapist data) {
-        String query = "INSERT INTO users(name, phone, address, email, role, password, specialization, rate, ratings, is_vetted ) values(:name, :phone, :address, :email, :role, :password, :specialization, :rate, :ratings, :is_vetted)";
+        String query = "INSERT INTO users(name, phone, address, email, role, password, specialization, description, rate, ratings, is_vetted ) values(:name, :phone, :address, :email, :role, :password, :specialization, :description, :rate, :ratings, :is_vetted)";
         try(Connection connection = sql2o.open()){
             int id =(int) connection.createQuery(query, true)
                     .bind(data)
@@ -35,7 +35,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
 
     @Override
     public void update(Therapist data) {
-        String query = "UPDATE users SET (name, phone, address, specialization, ratings, is_vetted) = (:name, :phone, :address, :specialization, :ratings, :is_vetted) WHERE id = :id";
+        String query = "UPDATE users SET (name, phone, address, specialization, description, ratings, is_vetted) = (:name, :phone, :address, :specialization, :description, :ratings, :is_vetted) WHERE id = :id";
         try(Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .bind(data)
@@ -69,7 +69,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
                     .executeAndFetchFirst(Therapist.class);
         } catch (Sql2oException ex){
             ex.printStackTrace();
-            return new Therapist("","",0,"","","", 0);
+            return new Therapist("","",0,"","","", 0, "");
         }
 
     }
@@ -131,7 +131,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
         List<Therapist> therapists;
         if(surveyResponses.get("financial_status").equals("Just there")){
             if (surveyResponses.get("physical_health").equals("Just there") || surveyResponses.get("eating_habits").equals("Just there")){
-                String selectQuery = "SELECT * FROM users WHERE rate <= 2000 AND specialization = 'Depression' ORDER BY rating DESC LIMIT 3";
+                String selectQuery = "SELECT * FROM users WHERE rate <= 2000 AND (specialization = 'Depression' OR specialization = 'Anxiety' OR specialization = 'Stress') AND is_vetted = 1 ORDER BY ratings DESC LIMIT 3";
                 try(Connection connection = sql2o.open()){
                     therapists = connection.createQuery(selectQuery)
                             .throwOnMappingFailure(false)
@@ -141,7 +141,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
                     therapists = new ArrayList<>();
                 }
             } else {
-                String selectQuery = "SELECT * FROM users WHERE rate <= 2000 ORDER BY rating LIMIT 3";
+                String selectQuery = "SELECT * FROM users WHERE rate <= 2000 AND is_vetted = 1 ORDER BY ratings LIMIT 3";
                 try(Connection connection = sql2o.open()){
                     therapists = connection.createQuery(selectQuery)
                             .throwOnMappingFailure(false)
@@ -153,7 +153,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
             }
         } else if (surveyResponses.get("financial_status").equals("In between")){
             if (surveyResponses.get("physical_health").equals("Just there") || surveyResponses.get("eating_habits").equals("Just there")){
-                String selectQuery = "SELECT * FROM users WHERE rate > 2000 AND rate <= 5000 AND specialization = 'Depression' ORDER BY rating DESC LIMIT 3";
+                String selectQuery = "SELECT * FROM users WHERE rate > 2000 AND rate <= 5000 AND (specialization = 'Depression' OR specialization = 'Anxiety' OR specialization = 'Stress') AND is_vetted = 1 ORDER BY ratings DESC LIMIT 3";
                 try(Connection connection = sql2o.open()){
                     therapists = connection.createQuery(selectQuery)
                             .throwOnMappingFailure(false)
@@ -163,7 +163,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
                     therapists = new ArrayList<>();
                 }
             } else {
-                String selectQuery = "SELECT * FROM users WHERE rate > 2000 AND rate <= 10000 ORDER BY rating LIMIT 3";
+                String selectQuery = "SELECT * FROM users WHERE rate > 2000 AND rate <= 10000 AND is_vetted = 1 ORDER BY ratings LIMIT 3";
                 try(Connection connection = sql2o.open()){
                     therapists = connection.createQuery(selectQuery)
                             .throwOnMappingFailure(false)
@@ -175,7 +175,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
             }
         } else {
             if (surveyResponses.get("physical_health").equals("Just there") || surveyResponses.get("eating_habits").equals("Just there")){
-                String selectQuery = "SELECT * FROM users WHERE rate > 10000 AND specialization = 'Depression' ORDER BY rating DESC LIMIT 3";
+                String selectQuery = "SELECT * FROM users WHERE rate > 10000 AND (specialization = 'Depression' OR specialization = 'Anxiety' OR specialization = 'Stress') AND is_vetted = 1 ORDER BY ratings DESC LIMIT 3";
                 try(Connection connection = sql2o.open()){
                     therapists = connection.createQuery(selectQuery)
                             .throwOnMappingFailure(false)
@@ -185,7 +185,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
                     therapists = new ArrayList<>();
                 }
             } else {
-                String selectQuery = "SELECT * FROM users WHERE rate > 10000 ORDER BY rating LIMIT 3";
+                String selectQuery = "SELECT * FROM users WHERE rate > 10000 AND is_vetted = 1 ORDER BY ratings LIMIT 3";
                 try(Connection connection = sql2o.open()){
                     therapists = connection.createQuery(selectQuery)
                             .throwOnMappingFailure(false)

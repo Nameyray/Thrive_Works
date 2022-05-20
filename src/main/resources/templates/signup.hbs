@@ -1,0 +1,48 @@
+{{#partial "title"}}
+  <title>Login</title>
+{{/partial}}
+{{#partial "css"}}
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/signup.css">
+{{/partial}}
+{{#partial "content"}}
+  <div class="container">
+    <div class="screen">
+      <div class="screen__content">
+        <form action="/signup" class="login" method="post">
+          <div class="login__field">
+            <i class="login__icon fa-solid fa-file-signature"></i>
+            <input type="text" id="name" name="name" class="login__input" placeholder="Name">
+          </div>
+          <div class="login__field">
+            <i class="login__icon fa-solid fa-phone"></i>
+            <input type="tel" id="phone" name="phone" class="login__input" placeholder="Phone">
+          </div>
+          <div class="login__field">
+            <i class="login__icon fa-solid fa-location-dot"></i>
+            <input type="text" id="address" name="address" class="login__input" placeholder="Address">
+          </div>
+          <div class="login__field">
+            <i class="login__icon fas fa-user"></i>
+            <input type="email" id="email" name="email" class="login__input" placeholder="Email">
+          </div>
+          <div class="login__field">
+            <i class="login__icon fas fa-lock"></i>
+            <input type="password" id="password" name="password" class="login__input" placeholder="Password">
+          </div>
+          <button class="button login__submit" type="submit">
+            <span class="button__text">Sign up</span>
+            <i class="button__icon fas fa-chevron-right"></i>
+          </button>
+        </form>
+      </div>
+      <div class="screen__background">
+        <span class="screen__background__shape screen__background__shape4"></span>
+        <span class="screen__background__shape screen__background__shape3"></span>
+        <span class="screen__background__shape screen__background__shape2"></span>
+        <span class="screen__background__shape screen__background__shape1"></span>
+      </div>
+    </div>
+  </div>
+{{/partial}}
+{{>layout.hbs}}
