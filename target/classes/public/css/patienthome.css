@@ -1,0 +1,9 @@
+i.icon {
+  color: purple;
+  font-size: 1rem;
+  display: inline;
+}
+
+.welcome>p {
+  display: inline;
+}

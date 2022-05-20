@@ -1,0 +1,160 @@
+{{#partial "title"}}
+  <title>Survey</title>
+{{/partial}}
+{{#partial "css"}}
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/survey.css">
+{{/partial}}
+{{#partial "content"}}
+  <div class="container ">
+    <header class="header">
+      <h1 id="title">
+        Thrive Survey
+      </h1>
+      <p id="description">
+        Thank you for taking the time to fill this form to understand your status.
+      </p>
+    </header>
+    <form action="/survey" id="survey-form" method="post">
+<!--      &lt;!&ndash; Text section &ndash;&gt;-->
+<!--      <div class="form-group">-->
+<!--        <label for="name">Name</label>-->
+<!--        <input type="text" name="name" id="name" class="formControl" placeholder="Enter your name" required>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; end of text section &ndash;&gt;-->
+      <!-- radio button section gender -->
+      <div class="form-group">
+        <p id="quest">What is your gender ?</p>
+        <label for="">
+          <input type="radio" name="gender" class="checkbox" value="male">Male
+        </label>
+        <label for="">
+          <input type="radio" name="gender" class="checkbox" value="female"> Female
+        </label>
+        <label for="">
+          <input type="radio" name="gender" class="checkbox" value="other" checked > Others
+        </label>
+      </div>
+      <!-- end of radio button -->
+
+      <!-- radio button section age -->
+      <div class="form-group">
+        <p id="quest1">How old are you ?</p>
+        <label for="">
+          <input type="radio" name="age" class="checkbox" value="0 - 18 yrs" checked> 0-18 yrs
+        </label>
+        <label for="">
+          <input type="radio" name="age" class="checkbox" value="19 - 30 yrs">19-30 yrs
+        </label>
+        <label for="">
+          <input type="radio" name="age" class="checkbox" value="31 - 45 yrs"> 31-45 yrs
+        </label>
+        <label for="">
+          <input type="radio" name="age" class="checkbox" value="Above 45 yrs"> Above 45 yrs
+        </label>
+
+      </div>
+      <!-- end of radio button -->
+
+      <!-- radio button section age -->
+      <div class="form-group">
+        <p id="quest2">What is your relationship status?</p>
+        <label for="">
+          <input type="radio" name="relationship" class="checkbox" value="single" checked> Single
+        </label>
+        <label for="">
+          <input type="radio" name="relationship" class="checkbox" value="married">Married
+        </label>
+        <label for="">
+          <input type="radio" name="relationship" class="checkbox" value="divorced"> Divorced
+        </label>
+        <label for="">
+          <input type="radio" name="relationship" class="checkbox" value="widowed"> Widowed
+        </label>
+
+      </div>
+      <!-- end of radio button -->
+
+      <!-- radio button section age -->
+      <div class="form-group">
+        <p id="quest3">Have you seen a therapist before ?</p>
+        <label for="">
+          <input type="radio" name="seen_therapist" class="checkbox" value="yes" checked> Yes
+        </label>
+        <label for="">
+          <input type="radio" name="seen_therapist" class="checkbox" value="no">No
+        </label>
+      </div>
+      <!-- end of radio button -->
+
+      <!-- Checkbox section -->
+      <div class="form-group">
+        <p id="quest4">How would you describe your physical health? </p>
+        <label for="">
+          <input type="radio" name="physical_health" class="checkbox" value="Just there"> Just there
+        </label>
+        <label for="">
+          <input type="radio" name="physical_health" class="checkbox" value="Great">  Great
+        </label>
+
+      </div>
+      <!-- End of checkbox section -->
+
+      <div class="form-group">
+        <p id="quest5">How would you describe your eating habits? </p>
+        <label for="">
+          <input type="radio" name="eating_habits" class="checkbox" value="Just there"> Just there
+        </label>
+        <label for="">
+          <input type="radio" name="eating_habits" class="checkbox" value="Great">  Great
+        </label>
+
+      </div>
+      <!-- End of checkbox section -->
+      <!--start of finance checkbox section-->
+      <div class="form-group">
+        <p id="quest6">How would you describe your financial status? </p>
+        <label for="">
+          <input type="radio" name="financial_status" class="checkbox" value="Just there"> Just there
+        </label>
+        <label for="">
+          <input type="radio" name="financial_status" class="checkbox" value="Just there">  Great
+        </label>
+
+      </div>
+      <!-- End of finance checkbox section -->
+      <!-- select language section -->
+      <div class="form-group">
+        <p id="quest7">What is your preferred language?</p>
+        <select name="language" required id="dropdown1" class="formControl">
+          <option value disabled selected >Select language</option>
+          <option value="English">English</option>
+          <option value="Swahili">Swahili</option>
+          <option value="French">French</option>
+        </select>
+      </div>
+      <!-- end of select language section -->
+
+      <!-- select  option section  -->
+      <div class="form-group">
+        <p id="quest8">What is your preferred option?</p>
+        <select name="preferred" required id="dropdown" class="formControl">
+          <option value disabled selected >Select option</option>
+          <option value="Individual therapy">Individual Therapy</option>
+          <option value="Group therapy">Group Therapy</option>
+          <option value="Couple therapy">Couple Therapy</option>
+        </select>
+      </div>
+      <!-- end of select option section -->
+      <!-- Textarea section -->
+<!--      <div class="form-group">-->
+<!--        <p id="quest9">Give us your feedback</p>-->
+<!--        <textarea name="feedback"  cols="30" rows="5"  id="feedback" class="textarea" placeholder="Enter your feedback here..."></textarea>-->
+<!--      </div>-->
+      <div class="form-group">
+        <button type="submit" id="submit" class="btn">Submit</button>
+      </div>
+    </form>
+  </div>
+{{/partial}}
+{{>layout.hbs}}

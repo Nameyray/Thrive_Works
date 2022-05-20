@@ -1,0 +1,23 @@
+{{#partial "title"}}
+  <title>Home</title>
+{{/partial}}
+{{#partial "css"}}
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/patienthome.css">
+{{/partial}}
+{{#partial "content"}}
+  <div class="container">
+    <div class="welcome mt-3">
+        <i class="fa fa-user icon"></i>
+        <p>Welcome {{patient.name}}</p>
+    </div>
+    <small>Your request for an appointment with a therapist has been sent.</small>
+    <small>Once the therapist sets up an appointment, it'll be listed below</small>
+<!--    <div class="card mt-3">-->
+<!--      <div class="card-body">-->
+
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+{{/partial}}
+{{>layout.hbs}}

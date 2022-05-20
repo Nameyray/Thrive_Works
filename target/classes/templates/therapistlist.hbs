@@ -1,0 +1,41 @@
+{{#partial "title"}}
+  <title>Therapist list</title>
+{{/partial}}
+{{#partial "css"}}
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/therapistlist.css">
+{{/partial}}
+{{#partial "content"}}
+  <div class="container">
+    <div class="row">
+      {{#if therapists}}
+        {{#each therapists}}
+          <div class="col-md-4 mb-md-0 mb-3">
+            <div class="card d-flex flex-column align-items-center justify-content-center">
+              <div class="inner-content d-flex flex-column align-items-center justify-content-center">
+                <div class="img-container rounded-circle">
+                  <img
+                          src="https://picsum.photos/200/300"
+                          alt="" class="rounded-circle">
+                </div>
+                <div class="h3">{{name}}</div>
+                <p class="designation text-muted text-uppercase">Therapist: {{specialization}}</p>
+              </div>
+              <ul class="social-links d-flex align-items-center justify-content-around list-unstyled w-100 fs-5 m-0 p-0">
+                <li><a href="/therapists/{{id}}/selected"><span class="fa-solid fa-check"></span></a></li>
+                <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                <li><a href="#"><span class="fab fa-google-plus"></span></a></li>
+                <li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
+              </ul>
+            </div>
+          </div>
+        {{/each}}
+      {{else}}
+        <div class="alert alert-primary my-3">
+          <i class="fa-solid fa-circle-exclamation"></i>No therapists found
+        </div>
+      {{/if}}
+    </div>
+  </div>
+{{/partial}}
+{{>layout.hbs}}
