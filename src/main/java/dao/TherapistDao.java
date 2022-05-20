@@ -20,7 +20,7 @@ public class TherapistDao implements ThriveDatabaseDao<Therapist> {
 
     @Override
     public void add(Therapist data) {
-        String query = "INSERT INTO users(name, phone, address, email, role, password, specialization, description, rate, ratings, is_vetted ) values(:name, :phone, :address, :email, :role, :password, :specialization, :description, :rate, :ratings, :is_vetted)";
+        String query = "INSERT INTO users(name, phone, address, email, role, password, specialization, description, rate, ratings, is_vetted) values(:name, :phone, :address, :email, :role, :password, :specialization, :description, :rate, :ratings, :is_vetted)";
         try(Connection connection = sql2o.open()){
             int id =(int) connection.createQuery(query, true)
                     .bind(data)
