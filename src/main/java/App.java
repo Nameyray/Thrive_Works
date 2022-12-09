@@ -28,6 +28,7 @@ public class App {
         port(getHerokuAssignedPort());
         staticFileLocation("/public/");
         Sql2o sql2o = new Sql2o("jdbc:postgresql://localhost:5432/thrive", "anna", "pol1234");
+
         PatientDao patientDao = new PatientDao(sql2o);
         TherapistDao therapistDao = new TherapistDao(sql2o);
         AppointmentDao appointmentDao = new AppointmentDao(sql2o);
